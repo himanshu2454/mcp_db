@@ -65,7 +65,6 @@ async def chat_endpoint(
                     result = json.loads(result)
                 db_result = tool_service.db_call(result, user_prompt=request.message)
                 logger.info("Database query result: %s", db_result)
-                # Convert ObjectId to string for JSON serialization
                 db_result = convert_objectid(db_result)
                 return JSONResponse({"reply": db_result})
             except Exception as e:
