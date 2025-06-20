@@ -6,7 +6,7 @@ from Services.LoggerService import get_logger
 
 logger = get_logger("MCP.GroqService")
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "key"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
