@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from Services.ToolService import get_tool_service, ToolService
 from Services.LLMs.Groq.GroqSerivce import get_groq_service, GroqService
 from Services.LoggerService import get_logger
+from Services.DatabaseService import get_database_service, DatabaseService
 from bson import ObjectId
 from datetime import datetime
 
@@ -43,9 +44,10 @@ def convert_objectid(obj):
 @app.post("/api/chat")
 async def chat_endpoint(
     request: ChatRequest,
-    tool_service: ToolService = Depends(get_tool_service),
+    db_service: DatabaseService = Depends(get_database_service),
     groq_service: GroqService = Depends(get_groq_service)
 ):
+    tool_service = get_tool_service(db_service.get_db())
     try:
         logger.info("Received chat request: sessionId=%s, message=%s", request.sessionId, request.message)
         if not request.sessionId or len(request.sessionId) > 100:

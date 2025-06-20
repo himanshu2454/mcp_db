@@ -1,4 +1,3 @@
-from Services.DatabaseService import get_db
 from Services.LoggerService import get_logger
 
 logger = get_logger("MCP.ToolService")
@@ -21,6 +20,5 @@ class ToolService:
             logger.error("Error executing db_call: %s", e)
             return f"Failed to execute query: {str(e)}"
 
-def get_tool_service():
-    db = get_db()
+def get_tool_service(db=None):
     return ToolService(db)
